@@ -3,9 +3,10 @@ package pokerBase;
 import java.util.ArrayList;
 
 import domain.CardDomainModel;
-import enums.eGame;
+import pokerEnums.eGame;
 import enums.eRank;
 import enums.eSuit;
+
 
 public class Rule {
 

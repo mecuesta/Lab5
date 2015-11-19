@@ -7,6 +7,7 @@ public enum eGameState {
 	DrawingCard(4);
 	
 	private int gameState;
+	
 
 	private eGameState(final int gameState){
 		this.gameState = gameState;

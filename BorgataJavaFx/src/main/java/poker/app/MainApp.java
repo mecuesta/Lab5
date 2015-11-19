@@ -29,7 +29,9 @@ import javafx.stage.Stage;
 import poker.app.view.PokerTableController;
 import poker.app.view.RootLayoutController;
 import pokerBase.Player;
+import pokerBase.Rule;
 import pokerBase.Table;
+import pokerEnums.eGame;
 
 public class MainApp extends Application {
 
@@ -39,7 +41,7 @@ public class MainApp extends Application {
 	
 	private Table tbl;
 	
-	private int iGameType;
+	private Rule iGameType;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -47,7 +49,7 @@ public class MainApp extends Application {
 		tbl = new Table();
 		
 		BorderPane root = new BorderPane();
-		Scene scene = new Scene(root, 400, 400);
+		Scene scene = new Scene(root, 1000, 400);
 
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Poker");
@@ -56,6 +58,7 @@ public class MainApp extends Application {
 		this.primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/res/img/26.png")));
 
 		this.primaryStage.setScene(scene);
+		this.primaryStage.centerOnScreen();
 		this.primaryStage.show();
 
 		initRootLayout();
@@ -133,13 +136,15 @@ public class MainApp extends Application {
 		tbl.removePlayer(playerToRemove);		
 	}
 
-	public int getiGameType() {
+	public Rule getiGameType() {
 		return iGameType;
 	}
 
-	public void setiGameType(int iGameType) {
+	public void setiGameType(Rule iGameType) {
 		this.iGameType = iGameType;
 	}
+	
+	// Here place the code googled to center the game with the screen etc
 	
 	
 }

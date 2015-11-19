@@ -10,7 +10,7 @@ import org.apache.commons.math3.util.Combinations;
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
 import domain.CardDomainModel;
-import enums.eGame;
+import pokerEnums.eGame;
 import enums.eRank;
 import enums.eSuit;
 import javafx.animation.FadeTransition;
@@ -40,6 +40,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import poker.app.MainApp;
+import poker.app.view.RootLayoutController;
 import pokerBase.Card;
 import pokerBase.Deck;
 import pokerBase.GamePlay;
@@ -59,6 +60,10 @@ public class PokerTableController {
 	boolean bP2Sit = false;
 	boolean bP3Sit = false;
 	boolean bP4Sit = false;
+	
+	// Reference to the RootLayoutController
+	private RootLayoutController rootlayoutcontroller;
+	private eGame game;
 
 	// Reference to the main application.
 	private MainApp mainApp;
@@ -207,6 +212,10 @@ public class PokerTableController {
 	private void SetGameControls(eGameState eGameState) {
 		switch (eGameState) {
 		case StartOfGame:
+			btnP1SitLeave.setVisible(false);
+			btnP2SitLeave.setVisible(false);
+			btnP3SitLeave.setVisible(false);
+			btnP4SitLeave.setVisible(false);
 			btnDraw.setVisible(true);
 			btnDraw.setDisable(false);
 			btnPlay.setVisible(false);
@@ -221,6 +230,10 @@ public class PokerTableController {
 		case EndOfGame:
 			btnDraw.setVisible(false);
 			btnPlay.setVisible(true);
+			btnP1SitLeave.setVisible(true);
+			btnP2SitLeave.setVisible(true);
+			btnP3SitLeave.setVisible(true);
+			btnP4SitLeave.setVisible(true);
 			break;
 		case DrawingCard:
 			btnDraw.setDisable(true);
@@ -247,9 +260,19 @@ public class PokerTableController {
 		HboxCommonArea.getChildren().add(imgBottomCard);
 		HboxCommunityCards.getChildren().clear();
 
-		// Get the Rule, start the Game
-		Rule rle = new Rule(eGame.Omaha);
+		// Get the Rule, start the Game, make into an if statement
+		// for it to be any game, not hard coded for a specific one
+		// I have a default for FiveStud if no choice is selected
+		// pulls out the int of realgame, switch statement to implement in here
+		Rule rle = null;
+		if (mainApp.getiGameType() == null) {
+			rle = new Rule(eGame.FiveStud);			
+		} else {
+			rle = mainApp.getiGameType();
+		}
+		
 		gme = new GamePlay(rle);
+		
 
 		// Add the seated players to the game, create a GPPH for the player
 		for (Player p : mainApp.GetSeatedPlayers()) {
@@ -396,7 +419,34 @@ public class PokerTableController {
 
 			Hand WinningHand = Hand.PickBestHand(BestPlayerHands);
 			Player WinningPlayer = (Player) hsPlayerHand.get(WinningHand);
+			/*imView = new ImageView(WinningHand);
+
+			imView.setX(WinningPlayer.getiPlayerPosition());
+			imView.setY(WinningPlayer.getiPlayerPosition());
+
+			TranslateTransition translateTransition = new TranslateTransition(Duration.millis(300), imView);
+			translateTransition.setFromX(0);
+			translateTransition.setToX(pntEndPoint.getX() - pntStartPoint.getX());
+			translateTransition.setFromY(0);
+			translateTransition.setToY(pntEndPoint.getY() - pntStartPoint.getY());
+			
+			*/
+			for (Card card : WinningHand.getCardsInHand()) {
+				translateT
+			}
+			
+			
+			
 			System.out.println("Winning Player Position: " + WinningPlayer.getiPlayerPosition());
+			
+			
+			
+			
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("GAME OVER");
+			alert.setHeaderText("Winner Winner Chicken Dinner");
+			alert.setContentText("Winning Player Position: " + WinningPlayer.getiPlayerPosition());
+			alert.showAndWait();
 			SetGameControls(eGameState.EndOfGame);
 
 		} else {
@@ -535,7 +585,6 @@ public class PokerTableController {
 
 		return parallelTransition;
 	}
-
 	/**
 	 * randInt - Create a random number
 	 * 

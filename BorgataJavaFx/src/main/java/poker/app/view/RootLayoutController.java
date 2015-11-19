@@ -4,17 +4,23 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import pokerEnums.eGame;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Menu;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.MenuItem;
 import javafx.stage.FileChooser;
 import poker.app.MainApp;
+import pokerBase.GamePlay;
+import pokerBase.Rule;
 
 /**
  * The controller for the root layout. The root layout provides the basic
@@ -25,11 +31,33 @@ import poker.app.MainApp;
  */
 public class RootLayoutController implements Initializable {
 
-    // Reference to the main application
+   
+	// Reference to the main application
     private MainApp mainApp;
+    
+   
 
     @FXML
     private Menu mnuGame;
+    
+    @FXML
+    private RadioMenuItem FiveStud;
+    @FXML
+    private RadioMenuItem FiveStudOneJoker;
+    @FXML
+    private RadioMenuItem FiveStudTwoJoker;
+    @FXML
+    private RadioMenuItem TexasHoldEm;
+    @FXML
+    private RadioMenuItem Omaha;
+    @FXML
+    private RadioMenuItem DeucesWild;
+    @FXML
+    private RadioMenuItem AcesAndEights;
+    @FXML
+    private RadioMenuItem SevenDraw;
+    @FXML
+    private RadioMenuItem SuperOmaha;
     
     
 	@Override
@@ -72,6 +100,44 @@ public class RootLayoutController implements Initializable {
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }
+    /**
+     * to handle the the rules for whenever a radio button is selected
+     * Going to make FiveStud my default
+     */
+    @FXML
+    private void handleMenuOptions(ActionEvent event) {
+    	eGame game = null;
+    	Rule rle = null;
+    	if (event.getSource().equals(FiveStud)) {
+    		rle = new Rule(eGame.FiveStud);
+    	} else if (event.getSource().equals(FiveStudOneJoker)) {
+    		rle = new Rule(eGame.FiveStudOneJoker);
+    	} else if (event.getSource().equals(FiveStudTwoJoker)) {
+    		rle = new Rule(eGame.FiveStudTwoJoker);
+    	} else if (event.getSource().equals(TexasHoldEm)) {
+    		rle = new Rule(eGame.TexasHoldEm);
+    	} else if (event.getSource().equals(Omaha)) {
+    		rle = new Rule(eGame.Omaha);
+    	} else if (event.getSource().equals(DeucesWild)) {
+    		rle = new Rule(eGame.DeucesWild);
+    	} else if (event.getSource().equals(AcesAndEights)) {
+    		rle = new Rule(eGame.AcesAndEights);
+    	} else if (event.getSource().equals(SevenDraw)) {
+    		rle = new Rule(eGame.SevenDraw);
+    	} else if (event.getSource().equals(SuperOmaha)) {
+    		rle = new Rule(eGame.SuperOmaha);
+    	} else {
+    		rle = new Rule(eGame.FiveStud);
+    	}
+    	
+    	mainApp.setiGameType(rle);
+    	
+    	
+    	
+    	
+    }
+    
+    
 
     /**
      * Creates an empty address book.
@@ -128,6 +194,7 @@ public class RootLayoutController implements Initializable {
     @FXML
     private void handleShowBirthdayStatistics() {
     }
+    
 
 
 
