@@ -58,6 +58,7 @@ public class MainApp extends Application {
 		this.primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/res/img/26.png")));
 
 		this.primaryStage.setScene(scene);
+		// For Centering
 		this.primaryStage.centerOnScreen();
 		this.primaryStage.show();
 
@@ -143,8 +144,6 @@ public class MainApp extends Application {
 	public void setiGameType(Rule iGameType) {
 		this.iGameType = iGameType;
 	}
-	
-	// Here place the code googled to center the game with the screen etc
 	
 	
 }

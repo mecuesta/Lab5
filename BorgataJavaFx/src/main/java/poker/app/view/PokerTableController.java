@@ -431,10 +431,29 @@ public class PokerTableController {
 			translateTransition.setToY(pntEndPoint.getY() - pntStartPoint.getY());
 			
 			*/
-			for (Card card : WinningHand.getCardsInHand()) {
-				translateT
+			/* HERE IS THE CODE FOR THE TRANSITION OF THE WINNING HAND WHEN THE GAME ENDS
+			 * SOMETHING ISN'T WORKING WITH THIS, CAN'T FIND A FIX
+			ImageView img = null;
+			for (Integer card = 0; card < 5; card++) {
+				
+				img = new ImageView(WinningHand.GetCardFromHand(card).getCardImg());
+				
+				TranslateTransition translateTransition = new TranslateTransition(Duration.millis(300), img);
+				
+				Bounds cardinhand = img.localToScene(img.getBoundsInLocal());
+				Point2D pntCardInHand = new Point2D(cardinhand.getMinX(), cardinhand.getMinY());
+				Double initial_x = pntCardInHand.getX();
+				Double initial_y = pntCardInHand.getY();
+				translateTransition.setFromX(initial_x);
+				translateTransition.setToX(initial_x);
+				translateTransition.setFromY(initial_y);
+				translateTransition.setToY(initial_y + 10);
+				
+				translateTransition.setCycleCount(1);
+				translateTransition.setAutoReverse(false);
+				
 			}
-			
+			*/
 			
 			
 			System.out.println("Winning Player Position: " + WinningPlayer.getiPlayerPosition());
@@ -445,7 +464,7 @@ public class PokerTableController {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("GAME OVER");
 			alert.setHeaderText("Winner Winner Chicken Dinner");
-			alert.setContentText("Winning Player Position: " + WinningPlayer.getiPlayerPosition());
+			alert.setContentText("Winning Player Position: " + WinningPlayer.getPlayerName());
 			alert.showAndWait();
 			SetGameControls(eGameState.EndOfGame);
 
