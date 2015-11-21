@@ -431,16 +431,18 @@ public class PokerTableController {
 			translateTransition.setToY(pntEndPoint.getY() - pntStartPoint.getY());
 			
 			*/
-			/* HERE IS THE CODE FOR THE TRANSITION OF THE WINNING HAND WHEN THE GAME ENDS
-			 * SOMETHING ISN'T WORKING WITH THIS, CAN'T FIND A FIX
-			ImageView img = null;
+			// HERE IS THE CODE FOR THE TRANSITION OF THE WINNING HAND WHEN THE GAME ENDS
+			// SOMETHING ISN'T WORKING WITH THIS, CAN'T FIND A FIX
+			/*Image img = null;
+			ImageView imgview = new ImageView();
 			for (Integer card = 0; card < 5; card++) {
 				
-				img = new ImageView(WinningHand.GetCardFromHand(card).getCardImg());
+				img = new Image(WinningHand.GetCardFromHand(card).getCardImg());
+				imgview.setImage(img);
 				
-				TranslateTransition translateTransition = new TranslateTransition(Duration.millis(300), img);
+				TranslateTransition translateTransition = new TranslateTransition(Duration.millis(300), imgview);
 				
-				Bounds cardinhand = img.localToScene(img.getBoundsInLocal());
+				Bounds cardinhand = imgview.localToScene(imgview.getBoundsInLocal());
 				Point2D pntCardInHand = new Point2D(cardinhand.getMinX(), cardinhand.getMinY());
 				Double initial_x = pntCardInHand.getX();
 				Double initial_y = pntCardInHand.getY();
